@@ -7,33 +7,45 @@ body{font-family:system-ui;background:#121116;color:#f1eef5;max-width:640px;marg
 .tabs{display:flex;gap:8px;margin:12px 0}
 .tabs button{flex:1;padding:10px;border:0;border-radius:10px;background:#1d1b23;color:#f1eef5;font-size:15px;font-weight:600}
 .tabs button.on{background:#ff4560}
+#q{width:100%;box-sizing:border-box;padding:12px;border-radius:10px;border:1px solid #2e2b38;background:#1d1b23;color:#f1eef5;font-size:16px;display:none;margin-bottom:6px}
 .c{background:#1d1b23;border-radius:14px;padding:14px;margin:12px 0}
 h2{margin:0 0 6px;font-size:18px}
 .b{color:#ff4560;font-size:12px;font-weight:700}
 p{margin:4px 0;font-size:14px}
-img{width:100%;border-radius:10px;margin-top:8px}
 </style></head><body>
 <h1>⚔️ Builds PS2</h1>
 <div class="tabs">
 <button id="tb" class="on">Builds</button>
 <button id="tc">Cartas</button>
 </div>
+<input id="q" placeholder="🔍 Pesquisar carta pelo nome...">
 <div id="app">Carregando...</div>
 <script>
-const app=document.getElementById("app");
+const app=document.getElementById("app"),q=document.getElementById("q");
+const tb=document.getElementById("tb"),tc=document.getElementById("tc");
+let dados=[],modo="b";
 function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e}
-function lista(arq,fn){
+function norm(s){return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase()}
+function build(b){const c=el("div","c");c.append(el("div","b",b.tag),el("h2","",b.nome),el("p","",b.detalhes));return c}
+function carta(x){const c=el("div","c");c.appendChild(el("h2","",x.nome));if(x.desc)c.appendChild(el("p","",x.desc));return c}
+function mostrar(){
+ app.textContent="";
+ const t=norm(q.value);
+ const l=dados.filter(x=>!t||norm(x.nome+" "+(x.desc||"")).includes(t));
+ if(!l.length){app.textContent="Nada encontrado";return}
+ l.forEach(x=>app.appendChild(modo==="b"?build(x):carta(x)));
+}
+function abrir(m,arq){
+ modo=m;q.style.display=m==="c"?"block":"none";q.value="";
+ tb.className=m==="b"?"on":"";tc.className=m==="c"?"on":"";
  app.textContent="Carregando...";
  fetch(arq+"?"+Date.now()).then(r=>r.json()).then(d=>{
-  app.textContent="";d.forEach(x=>app.appendChild(fn(x)));
+  if(m==="c")d.sort((a,b)=>a.nome.localeCompare(b.nome));
+  dados=d;mostrar();
  }).catch(()=>{app.textContent="Erro ao carregar"});
 }
-function build(b){const c=el("div","c");c.append(el("div","b",b.tag),el("h2","",b.nome),el("p","",b.detalhes));return c}
-function carta(x){const c=el("div","c");c.appendChild(el("h2","",x.nome));
- if(x.foto){const i=el("img");i.src=x.foto;i.alt=x.nome;c.appendChild(i)}
- if(x.desc)c.appendChild(el("p","",x.desc));return c}
-const tb=document.getElementById("tb"),tc=document.getElementById("tc");
-tb.onclick=()=>{tb.className="on";tc.className="";lista("builds.json",build)};
-tc.onclick=()=>{tc.className="on";tb.className="";lista("cartas.json",carta)};
-lista("builds.json",build);
+q.oninput=mostrar;
+tb.onclick=()=>abrir("b","builds.json");
+tc.onclick=()=>abrir("c","cartas.json");
+abrir("b","builds.json");
 </script></body></html>

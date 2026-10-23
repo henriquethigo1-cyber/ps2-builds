@@ -1,3 +1,14 @@
 [
-{"nome":"Exemplo de carta","foto":"carta1.jpg","desc":"Por que ela é boa e quando pegar."}
+{"nome":"Tribute","desc":"5% de pontos a cada onda. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Loaded Dice","desc":"Ganhe um reroll toda onda (permanente). Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Sacrifice","desc":"Perca 1 coração, mas na próxima onda vira uma carta lendária. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Marathon","desc":"x1.15 de pontos somente na próxima onda. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Frenesi","desc":"Efeito não confirmado, mas vale pegar. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Lone Wolf","desc":"Efeito não confirmado, mas vale pegar. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Ascension","desc":"x1.2 de pontos. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Streak","desc":"5% por onda eliminada. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Last Stand","desc":"x1.1 de pontos, mas sem carta de reviver e sem cura na próxima onda. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Boss Rush","desc":"Faz aparecer um Boss em cada andar pelo restante da partida. x2 pontos em matar bosses, e cada andar passa a conceder o dobro de pontos. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Lucky Draw (Sorteio sortudo)","desc":"Aumenta a probabilidade de as próximas cartas recebidas serem raras. Cartas iguais ou com valores menores também podem ser pegas."},
+{"nome":"Damage +20%","desc":"Um aumento permanente em um atributo pelo resto da partida. Quanto mais rara a carta, maior o aumento. Cartas iguais ou com valores menores também podem ser pegas."}
 ]

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Builds PS2</title>
+<style>
+body{font-family:system-ui;background:#121116;color:#f1eef5;max-width:640px;margin:auto;padding:16px}
+.c{background:#1d1b23;border-radius:14px;padding:14px;margin:12px 0}
+h2{margin:0 0 6px;font-size:18px}
+.b{color:#ff4560;font-size:12px;font-weight:700}
+p{margin:4px 0;font-size:14px}
+</style></head><body>
+<h1>⚔️ Builds PS2</h1>
+<div id="app">Carregando...</div>
+<script>
+fetch("builds.json?"+Date.now()).then(r=>r.json()).then(d=>{
+ const a=document.getElementById("app");a.innerHTML="";
+ d.forEach(b=>{
+  const c=document.createElement("div");c.className="c";
+  c.innerHTML=`<div class="b">${b.tag}</div><h2>${b.nome}</h2><p>${b.detalhes}</p>`;
+  a.appendChild(c);
+ });
+}).catch(()=>{document.getElementById("app").textContent="Erro ao carregar"});
+</script></body></html>
